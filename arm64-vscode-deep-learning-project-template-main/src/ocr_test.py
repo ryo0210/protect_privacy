@@ -1,24 +1,57 @@
-import easyocr
-import cv2
 import os
+import time
 
-os.environ['KMP_DUPLICATE_LIB_OK']='True'
+import cv2
+import easyocr
+import numpy as np
+from PIL import Image, ImageDraw, ImageFilter
 
-reader = easyocr.Reader(['en','ja'], gpu=False) # this needs to run only once to load the model into memory
-img = cv2.imread("src_ocr.jpeg")
-# img = cv2.resize(img, None, fx=0.3, fy=0.3)
-# cv2.imwrite("./small_img.jpg", img)
-
-result = reader.readtext(img)
-print(result)
-
-result_img = img.copy()
-for s in result:
-    print(s[0][0][0], s[0][0][1], s[0][1][0], s[0][1][1])
-    cv2.rectangle(result_img, (int(s[0][0][0]), int(s[0][0][1])), (int(s[0][2][0]), int(s[0][2][1])), (0, 255, 0), 2)
-    print(s[1])
+import image_util as iu
 
 
-print("result")
-print(result)
-cv2.imwrite("./ocr_result_img.jpg", result_img)
+def main():
+    # img_path = "./image/word/src_ocr.jpeg"
+    img_path = "./image/scenery.jpg"
+    img_name = os.path.splitext(img_path)[0]
+
+    img = iu.read_image(img_path)
+    ocr_results = ocr(img)
+    result_img = blur_image(img, ocr_results)
+
+    result_img.save(f"{img_name}_ocr_result.png")
+
+
+def ocr(img):
+    reader = easyocr.Reader(['ja','en'])
+    results = reader.readtext(np.array(img))
+    if not results:
+        print("文字が検出されませんでした。")
+
+    ocr_results = []
+    for result in results:
+        ocr_result = {
+            "position" : (
+                (int(result[0][0][0]), int(result[0][0][1])),
+                (int(result[0][1][0]), int(result[0][1][1])),
+                (int(result[0][2][0]), int(result[0][2][1])),
+                (int(result[0][3][0]), int(result[0][3][1]))
+            ),
+            "text"     : result[1],
+            "confident": result[2]
+        }
+        print(ocr_result)
+        ocr_results.append(ocr_result)
+    return ocr_results
+
+
+def blur_image(img, ocr_results):
+    positions = []
+    for ocr_result in ocr_results:
+        positions.append([ocr_result["position"][0], ocr_result["position"][2]])
+    return iu.blur_image(img, positions)
+
+
+if __name__ == "__main__":
+    start_time = time.time()
+    main()
+    print("took:", time.time() - start_time)
