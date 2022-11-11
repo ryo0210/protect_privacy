@@ -10,8 +10,8 @@ import image_util as iu
 
 
 def main():
-    # img_path = "./image/word/src_ocr.jpeg"
-    img_path = "./image/scenery.jpg"
+    img_path = "./image/word/IMG_4646.JPG"
+    # img_path = "./image/scenery.jpg"
     img_name = os.path.splitext(img_path)[0]
 
     img = iu.read_image(img_path)
@@ -43,12 +43,16 @@ def ocr(img):
         ocr_results.append(ocr_result)
     return ocr_results
 
+def set_coordinates(ocr_results):
+    coordinates = []
+    for ocr_result in ocr_results:
+        coordinates.append([ocr_result["position"][0], ocr_result["position"][2]])
+    return coordinates
+
 
 def blur_image(img, ocr_results):
-    positions = []
-    for ocr_result in ocr_results:
-        positions.append([ocr_result["position"][0], ocr_result["position"][2]])
-    return iu.blur_image(img, positions)
+    coordinates = set_coordinates(ocr_results)
+    return iu.blur_image(img, coordinates)
 
 
 if __name__ == "__main__":

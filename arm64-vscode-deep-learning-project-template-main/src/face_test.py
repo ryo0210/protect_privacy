@@ -11,8 +11,8 @@ from insightface.data import get_image as ins_get_image
 import image_util as iu
 
 def main():
-    img_path = "./image/face/nearby_face.jpg"
-    img_path = "./image/scenery.jpg"
+    # img_path = "./image/face/nearby_face.jpg"
+    img_path = "./image/IMG_4656.JPG"
     img_name = os.path.splitext(img_path)[0]
 
     img = iu.read_image(img_path)
@@ -33,16 +33,16 @@ def detect_faces(img):
         # sys.exit()
     return faces
 
-def blur_image(img, faces):
-    positions = []
+def set_coordinates(faces):
+    coordinates = []
     for face in faces:
         x_1, y_1, x_2, y_2 = map(int, face.bbox)
-        # w = x_2 - x_1
-        # h = y_2 - y_1
-        # result = mosaic_area(img.copy(), x_1, y_1, w, h)
-        positions.append([(x_1, y_1), (x_2, y_2)])
+        coordinates.append([(x_1, y_1), (x_2, y_2)])
+    return coordinates
 
-    return iu.blur_image(img, positions)
+def blur_image(img, faces):
+    coordinates = set_coordinates(faces)
+    return iu.blur_image(img, coordinates)
 
 
 # def mosaic_area(src, x, y, width, height, ratio=0.1):

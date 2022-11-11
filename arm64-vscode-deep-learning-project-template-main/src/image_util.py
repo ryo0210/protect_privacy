@@ -3,12 +3,17 @@ import numpy as np
 
 def read_image(file_path):
     img = Image.open(file_path)
+    scale = 2000 / max(img.size)
+    w = round(img.width * scale)
+    h = round(img.height * scale)
+    img = img.resize((w, h))
     
     try:
         for orientation in ExifTags.TAGS.keys():
             if ExifTags.TAGS[orientation] == 'Orientation':
                 break
         exif = img._getexif()
+        print(exif)
         if exif is not None:
             if exif[orientation] == 3:
                 img = img.rotate(180, expand=True)
@@ -16,8 +21,8 @@ def read_image(file_path):
                 img = img.rotate(270, expand=True)
             elif exif[orientation] == 8:
                 img = img.rotate(90, expand=True)
-    except AttributeError:
-        pass
+    except Exception as e:
+        print(e)
 
     if img.mode == 'RGBA':
         img = img.convert('RGB')
