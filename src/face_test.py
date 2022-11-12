@@ -30,7 +30,6 @@ def detect_faces(img):
 
     if not faces:
         print("顔が検出されませんでした。")
-        # sys.exit()
     return faces
 
 def set_coordinates(faces):

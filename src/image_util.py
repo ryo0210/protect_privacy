@@ -3,7 +3,7 @@ import numpy as np
 
 def read_image(file_path):
     img = Image.open(file_path)
-    scale = 2000 / max(img.size)
+    scale = 1080 / max(img.size)
     w = round(img.width * scale)
     h = round(img.height * scale)
     img = img.resize((w, h))

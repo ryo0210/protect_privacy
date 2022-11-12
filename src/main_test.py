@@ -8,6 +8,7 @@ import ocr_test
 IMG_PATH = "./image/test.png"
 
 def main():
+    print("start---")
     img = iu.read_image(IMG_PATH)
 
     ocr_results = ocr_test.ocr(img)
