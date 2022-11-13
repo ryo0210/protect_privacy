@@ -2,4 +2,5 @@
 easyocr
 onnxruntime
 cython
+flask
 # insightface
