@@ -2,10 +2,36 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="stylesheet" href="../static/style.css">
         <title>Protect Privacy</title>
     </head>
     <body>
-        <h1>Protect Privacy</h1>
+        <h1>Protect
+            <span class="material-symbols-outlined">
+                shield
+            </span>
+        Privacy</h1>
+        
         <h3>画像から個人情報を検出して保護します。</h3>
+        <form enctype="multipart/form-data">
+            <input type="file" name="img">
+            <button type="submit" formmethod="post">POST</button></form>
+            {% if img_path %}
+            <div class="resize-image">
+                <img src="{{ img_path }}">
+            </div>
+            <p>{{ img_path }}</p>
+            {% endif %}
+            {% if protected_img_path %}
+                <div class="resize-image">
+                    <img src="{{ protected_img_path }}">
+                </div>
+            <p>{{ protected_img_path }}</p>
+            {% endif %}
+        </form>
     </body>
 </html>
