@@ -30,7 +30,9 @@ def pil2cv(img):
     mode = img.mode
     if mode == '1':
         return np.array(img, dtype=np.uint8) * 255
-        # return cv_img
+    elif mode == 'L':
+        cv_img = np.array(img, dtype=np.uint8)
+        return cv2.cvtColor(cv_img, cv2.COLOR_GRAY2BGR)
     elif mode == 'RGB':
         cv_img = np.array(img, dtype=np.uint8)
         return cv2.cvtColor(cv_img, cv2.COLOR_RGB2BGR)
