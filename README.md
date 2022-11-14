@@ -8,9 +8,3 @@ docker run -it -p 8000:5000 --name protect_privacy -v ${PWD}/src:/protect_privac
 docker start protect_privacy
 docker exec -it protect_privacy bash
 ```
-
-```
-export FLASK_APP=flaskr
-export FLASK_DEBUG=1
-flask run --host=0.0.0.0
-```
