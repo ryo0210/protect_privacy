@@ -1,6 +1,7 @@
-from PIL import Image, ExifTags, ImageDraw, ImageFilter
+from PIL import Image, ExifTags
 import numpy as np
 import cv2
+
 
 def read_image(file_path):
     img = Image.open(file_path)
@@ -8,7 +9,7 @@ def read_image(file_path):
     # w = round(img.width * scale)
     # h = round(img.height * scale)
     # img = img.resize((w, h))
-    
+
     try:
         for orientation in ExifTags.TAGS.keys():
             if ExifTags.TAGS[orientation] == 'Orientation':
@@ -25,6 +26,7 @@ def read_image(file_path):
         print(e)
 
     return pil2cv(img)
+
 
 def pil2cv(img):
     mode = img.mode
@@ -50,5 +52,4 @@ def blur_image(src, mask_img):
     blurred_image = cv2.GaussianBlur(src, (99, 99), 0)
     transparency = (0, 0, 0)
     front = cv2.bitwise_and(blurred_image, mask_img)
-    return np.where(front==transparency, src, front)
-    
+    return np.where(front == transparency, src, front)

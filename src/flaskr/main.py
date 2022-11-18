@@ -1,35 +1,39 @@
-import datetime
+import base64
 
 import cv2
 import numpy as np
-from flask import Flask, render_template, request
+from flask import render_template, request
 
-from flaskr import app
 import flaskr.main_test as fm
+from flaskr import app
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    img_path = "static/images/"
-    protected_img_path = "static/images/"
     if request.method == 'GET':
-        img_path=None
-        protected_img_path=None
+        base64_img = None
+        protected_base64_img = None
     elif request.method == 'POST':
-        stream = request.files['img'].stream
-        img_array = np.asarray(bytearray(stream.read()), dtype=np.uint8)
-        img = cv2.imdecode(img_array, 1)
+        img = read_image(request)
+
         protected_img = fm.protect_privacy(img)
 
-        upload_at = datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")
-        protected_img_path = img_path + upload_at + "_protected.jpg"
-        img_path = img_path + upload_at + ".jpg"
-        
-        cv2.imwrite("flaskr/" + img_path, img)
-        cv2.imwrite("flaskr/" + protected_img_path, protected_img)
-        
+        base64_img = cv_to_base64(img)
+        protected_base64_img = cv_to_base64(protected_img)
+
     return render_template(
         'index.html',
-        img_path=img_path,
-        protected_img_path=protected_img_path
+        base64_img=base64_img,
+        protected_base64_img=protected_base64_img
     )
+
+
+def read_image(request):
+    stream = request.files['img'].stream
+    img_array = np.asarray(bytearray(stream.read()), dtype=np.uint8)
+    return cv2.imdecode(img_array, 1)
+
+
+def cv_to_base64(img):
+    _, encoded = cv2.imencode(".jpg", img)
+    return base64.b64encode(encoded).decode("ascii")
