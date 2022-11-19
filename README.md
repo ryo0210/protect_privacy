@@ -1,7 +1,7 @@
 # protect_privacy
 
-2022年11月14日
-![](https://github.com/ryo0210/protect_privacy/blob/main/dev_log_img/スクリーンショット%202022-11-14%202.18.06.png)
+2022年11月20日
+<img width="2422" alt="スクリーンショット 2022-11-20 0 17 02" src="https://user-images.githubusercontent.com/43768044/202858859-0623f1af-7d4a-4a89-8193-32ac5a1bbddd.png">
 
 メモ
 ```
