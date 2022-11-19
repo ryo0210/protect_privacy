@@ -1,28 +1,107 @@
 body {
-    font-family: 'Noto Sans JP', sans-serif;
+  font-family: 'SF Pro', Courier, monospace;
+  background-color: #F5F5F7;
+  margin: 0;
+}
+
+.material-symbols-rounded.shield {
+  font-size: 38px;
+}
+
+.material-symbols-rounded.arrow_circle_right {
+  font-size: 64px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  /* vertical-align: middle; */
+}
+
+.header {
+  background: #333333;
+  position:relative;
+  color: white;
+  padding: 16px 20px;
+}
+
+h1{
+  margin: 0;
+}
+
+h3{
+  margin: 8px;
+}
+
+.subtitle {
+  font-weight: normal;
+  color: whitesmoke;
+  margin-top: 2px;
+  margin-left: 4px;
+  margin-bottom: 14px;
+}
+
+.title h1 {
+  margin-top: 0;
 }
 
 
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 1,
-  'wght' 700,
-  'GRAD' 200,
-  'opsz' 20
+.content {
+  padding: 18px;
 }
 
+.content-area {
+  display: flex;
+  align-items: center;
+}
 
+.upload {
+  background-color: white;
+  margin: 24px;
+  padding: 36px;
+  border-radius: 12px;
+}
 
 .resize-image img{
     max-width: 75%;
     height: auto;
+    align-items: center;
     margin-bottom: 10px;
 }
 
 .a-btn {
+  display: inline-block;
   color: white;
   font-weight: bold;
-  background-color: rgb(0, 102, 255);
+  background-color: rgb(14, 109, 250);
+  border-radius: 8px;
   text-decoration: none;
-  padding: 8px;
+  padding: 6px 16px;
+}
+
+.a-btn:hover {
+  background-color: rgb(4, 76, 185);
+}
+
+.origin-text {
+  color: #585858;
+  display: inline-block;
+}
+
+.output-text {
+  color: #333333;
+  display: inline-block;
+}
+
+.image {
+  max-width: 45%;
+  border-radius: 12px;
+  margin: 24px;
+  padding: 36px;
+  background: white;
+}
+
+.arrow {
+  display: flex;
+  color: #333333;
 }
