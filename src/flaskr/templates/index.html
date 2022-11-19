@@ -25,12 +25,17 @@
                     <img src="data:image/jpeg;base64,{{base64_img}}" />
                 </div>
             {% endif %}
+            <br>
             {% if protected_base64_img %}
                 <h3>保護処理後画像</h3>
                 <div class="resize-image">
                     <img src="data:image/jpeg;base64,{{protected_base64_img}}" />
                 </div>
+                <a class="a-btn" id="download_base64_img" href="data:image/jpeg;base64,{{protected_base64_img}}" download="{{file_name}}_protect_privacy" >ダウンロード</a>
             {% endif %}
         </form>
+        <script>
+            $('#download_base64_img').attr('href', data_url);
+        </script>
     </body>
 </html>

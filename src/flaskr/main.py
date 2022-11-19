@@ -11,10 +11,12 @@ from flaskr import app
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
+        file_name = None
         base64_img = None
         protected_base64_img = None
     elif request.method == 'POST':
         img = read_image(request)
+        file_name = request.files['img'].filename.split(".")[0]
 
         protected_img = fm.protect_privacy(img)
 
@@ -23,6 +25,7 @@ def index():
 
     return render_template(
         'index.html',
+        file_name=file_name,
         base64_img=base64_img,
         protected_base64_img=protected_base64_img
     )
