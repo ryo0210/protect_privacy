@@ -4,36 +4,52 @@
         <meta charset="UTF-8">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,-25" /> -->
+        <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
+        <!-- <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet"> -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,700,1,-25" />
         <link rel="stylesheet" href="../static/style.css">
         <title>Protect Privacy</title>
     </head>
     <body>
-        <h1><span class="material-symbols-outlined">
-            shield
-            </span>
-        Protect Privacy</h1>
-
-        <h3>画像から個人情報を検出して保護します。</h3>
-        <form enctype="multipart/form-data">
-            <input type="file" name="img">
-            <button type="submit" formmethod="post">個人情報を保護する</button></form>
+        <header class="header">
+            <h1 class="title"><span class="material-symbols-rounded shield title">shield
+                </span> Protect Privacy</h1>
+            <h5 class="subtitle"> 画像から個人情報を検出して保護します。</h5>
+        </header>
+        <div class="content">
+            <form class="upload" enctype="multipart/form-data">
+                <input type="file" name="img">
+                <button type="submit" formmethod="post">個人情報を保護する</button>
+            </form>
             {% if base64_img %}
-                <p>オリジナル画像</p>
-                <div class="resize-image">
-                    <img src="data:image/jpeg;base64,{{base64_img}}" />
+            <div class="content-area">
+                <div class="image">
+                    <h3 class="origin-text">オリジナル画像</h3>
+                    <div class="resize-image">
+                        <img src="data:image/jpeg;base64,{{base64_img}}" />
+                    </div>
+                </div>
+                <div class="arrow"><span class="material-symbols-rounded arrow_circle_right">
+                    arrow_circle_right
+                    </span></div>
+                <div class="image">
+                    <div class="output-text">
+                        <h3 class="output-text">保護処理画像</h3>
+                        <a class="a-btn" id="download_base64_img" href="data:image/jpeg;base64,{{protected_base64_img}}" download="{{file_name}}_protect_privacy" >ダウンロード</a>
+                    </div>
+                    <div class="resize-image">
+                        <img src="data:image/jpeg;base64,{{protected_base64_img}}" />
+                    </div>
+                </div>
+            </div>
+
                 </div>
             {% endif %}
-            <br>
-            {% if protected_base64_img %}
-                <h3>保護処理後画像</h3>
-                <div class="resize-image">
-                    <img src="data:image/jpeg;base64,{{protected_base64_img}}" />
-                </div>
-                <a class="a-btn" id="download_base64_img" href="data:image/jpeg;base64,{{protected_base64_img}}" download="{{file_name}}_protect_privacy" >ダウンロード</a>
-            {% endif %}
-        </form>
+            <!-- <br> -->
+            <!-- {% if protected_base64_img %}
+            {% endif %} -->
+        </div>
         <script>
             $('#download_base64_img').attr('href', data_url);
         </script>

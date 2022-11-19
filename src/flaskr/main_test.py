@@ -10,15 +10,14 @@ IMG_PATH = "./image/test.png"
 
 
 def protect_privacy(img):
-    # ocr_results = ocr_test.ocr(img)
-    # o_masked_img = ocr_test.generate_mask_image(img, ocr_results)
+    ocr_results = ocr_test.ocr(img)
+    o_masked_img = ocr_test.generate_mask_image(img, ocr_results)
 
     faces = face_test.detect_faces(img)
     f_masked_img = face_test.generate_mask_image(img, faces)
 
-    # masked_img = cv2.bitwise_or(o_masked_img, f_masked_img)
-    return iu.blur_image(img, f_masked_img)
-    # return iu.blur_image(img, masked_img)
+    masked_img = cv2.bitwise_or(o_masked_img, f_masked_img)
+    return iu.blur_image(img, masked_img)
 
     # 実行速度速めのデバッグ用
     # faces = face_test.detect_faces(img)
