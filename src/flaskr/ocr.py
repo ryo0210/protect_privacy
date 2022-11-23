@@ -5,8 +5,8 @@ import cv2
 import easyocr
 import numpy as np
 
-# import image_util as iu
 import flaskr.image_util as iu
+# # import image_util as iu
 
 PRIVACY_KEYWORD = ['様', '住所', 'TEL', 'FAX']
 PRIVACY_NUMBER = ['〒', 'テ', '番号', 'ID']
@@ -14,7 +14,8 @@ PRIVACY_TEXT = PRIVACY_KEYWORD + PRIVACY_NUMBER
 
 
 def main():
-    img_path = "ocr_test.png"
+    # img_path = "ocr_test.png"
+    img_path = "./flaskr/black.png"
     img_name = os.path.splitext(img_path)[0]
 
     img = iu.read_image(img_path)
@@ -25,6 +26,7 @@ def main():
 
 
 def ocr(img):
+    if type(img) is not np.ndarray: raise ValueError
     reader = easyocr.Reader(['ja', 'en'])
     results = reader.readtext(img)
     if not results:
@@ -76,6 +78,9 @@ def blur(img, ocr_results):
 
 
 if __name__ == "__main__":
+    import image_util as iu
     start_time = time.time()
     main()
     print("took:", time.time() - start_time)
+else:
+    import flaskr.image_util as iu

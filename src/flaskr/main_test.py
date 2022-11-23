@@ -4,14 +4,14 @@ import cv2
 
 import flaskr.face_test as face_test
 import flaskr.image_util as iu
-import flaskr.ocr_test as ocr_test
+import flaskr.ocr as ocr
 
 IMG_PATH = "./image/test.png"
 
 
 def protect_privacy(img):
-    ocr_results = ocr_test.ocr(img)
-    o_masked_img = ocr_test.generate_mask_image(img, ocr_results)
+    ocr_results = ocr.ocr(img)
+    o_masked_img = ocr.generate_mask_image(img, ocr_results)
 
     faces = face_test.detect_faces(img)
     f_masked_img = face_test.generate_mask_image(img, faces)
@@ -30,8 +30,8 @@ def main():
     print("start---")
     img = iu.read_image(IMG_PATH)
 
-    ocr_results = ocr_test.ocr(img)
-    coordinates = ocr_test.set_coordinates(ocr_results)
+    ocr_results = ocr.ocr(img)
+    coordinates = ocr.set_coordinates(ocr_results)
 
     faces = face_test.detect_faces(img)
     coordinates.extend(face_test.set_coordinates(faces))
