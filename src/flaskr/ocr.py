@@ -1,32 +1,16 @@
-import os
-import time
-
 import cv2
 import easyocr
 import numpy as np
 
-import flaskr.image_util as iu
-# # import image_util as iu
 
 PRIVACY_KEYWORD = ['様', '住所', 'TEL', 'FAX']
 PRIVACY_NUMBER = ['〒', 'テ', '番号', 'ID']
 PRIVACY_TEXT = PRIVACY_KEYWORD + PRIVACY_NUMBER
 
 
-def main():
-    # img_path = "ocr_test.png"
-    img_path = "./flaskr/black.png"
-    img_name = os.path.splitext(img_path)[0]
-
-    img = iu.read_image(img_path)
-    ocr_results = ocr(img)
-    result_img = blur(img, ocr_results)
-
-    cv2.imwrite(f"{img_name}_ocr_result.png", result_img)
-
-
 def ocr(img):
-    if type(img) is not np.ndarray: raise ValueError
+    if type(img) is not np.ndarray:
+        raise ValueError
     reader = easyocr.Reader(['ja', 'en'])
     results = reader.readtext(img)
     if not results:
@@ -50,6 +34,8 @@ def ocr(img):
 
 
 def generate_mask_image(img, ocr_results):
+    if type(img) is not np.ndarray:
+        raise ValueError
     mask_img = np.zeros_like(img)
     for ocr_result in ocr_results:
         cv2.fillConvexPoly(mask_img, np.array(ocr_result['points']), (255, 255, 255))
@@ -70,17 +56,3 @@ def contains_privacy(text):
     return False
 
     # return PRIVACY_TEXT in text
-
-
-def blur(img, ocr_results):
-    mask_img = generate_mask_image(img, ocr_results)
-    return iu.blur_image(img, mask_img)
-
-
-if __name__ == "__main__":
-    import image_util as iu
-    start_time = time.time()
-    main()
-    print("took:", time.time() - start_time)
-else:
-    import flaskr.image_util as iu

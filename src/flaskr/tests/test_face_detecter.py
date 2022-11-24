@@ -1,23 +1,23 @@
 import pytest
 
 import flaskr.image_util as iu
-import flaskr.ocr as ocr
+import flaskr.face_detecter as fd
 
 
-def test_ocr_raise():
+def test_detect_face_raise():
     img = "not_exist.png"
     with pytest.raises(ValueError):
-        ocr.ocr(img)
+        fd.detect_faces(img)
 
 
-def test_ocr_no_text():
+def test_detect_face_no_face():
     img = iu.read_image("black.png")
-    ocr_results = ocr.ocr(img)
+    ocr_results = fd.detect_faces(img)
     assert ocr_results == []
 
 
 def test_generate_mask_image_shape():
     img = iu.read_image("test_small.jpg")
-    ocr_results = []
-    mask_img = ocr.generate_mask_image(img, ocr_results)
+    faces = []
+    mask_img = fd.generate_mask_image(img, faces)
     assert mask_img.shape == img.shape
