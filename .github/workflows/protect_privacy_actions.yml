@@ -16,7 +16,4 @@ jobs:
       run: docker run -d --name protect_privacy -v ${PWD}/src:/src protect_privacy:latest
 
     - name: Run pytest
-      run: |
-        docker exec protect_privacy pip list
-        docker exec protect_privacy pip show pytest
-        docker exec protect_privacy pytest
+      run: docker exec protect_privacy pytest
