@@ -1,6 +1,6 @@
 FROM python:3.9-buster
 
-WORKDIR /protect_privacy
+WORKDIR /src
 
 COPY ./src /src/
 
