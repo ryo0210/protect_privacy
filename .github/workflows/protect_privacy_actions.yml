@@ -17,6 +17,6 @@ jobs:
 
     - name: Run pytest
       run: |
-        pip list
-        pip show pytest
-        pytest
+        docker exec protect_privacy pip list
+        docker exec protect_privacy pip show pytest
+        docker exec protect_privacy pytest
