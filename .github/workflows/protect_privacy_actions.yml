@@ -17,6 +17,6 @@ jobs:
 
     - name: Run pytest
       run: |
-      pip show pytest
-      pip list
-      pytest
+        pip show pytest
+        pip list
+        pytest
