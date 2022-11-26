@@ -13,7 +13,7 @@ jobs:
       run: docker image build -t protect_privacy:latest .
 
     - name: Docker container up
-      run: docker run --name protect_privacy -v ${PWD}/src:/src protect_privacy:latest
+      run: docker run -d --name protect_privacy -v ${PWD}/src:/src protect_privacy:latest
 
     - name: Run pytest
       run: |
