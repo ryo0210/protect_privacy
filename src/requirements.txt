@@ -4,3 +4,4 @@ onnxruntime
 cython
 flask
 # insightface
+pytest
